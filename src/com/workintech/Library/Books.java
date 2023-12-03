@@ -8,9 +8,11 @@ private String bookName;
 private double price;
 private boolean isRented;
 private String dateOfPurchase;
+private Invoice bookInvoice;
 
 
     public Books(String bookID, String author, String bookName, double price, boolean isRented, String dateOfPurchase) {
+        this.bookType="";
         this.bookID = bookID;
         this.author = author;
         this.bookName = bookName;
@@ -75,10 +77,19 @@ private String dateOfPurchase;
         this.bookType = bookType;
     }
 
+    public Invoice getBookInvoice() {
+        return bookInvoice;
+    }
+
+    public void setBookInvoice(Invoice bookInvoice) {
+        this.bookInvoice = bookInvoice;
+    }
+
     @Override
     public String toString() {
-        return "Book{" +
-                "bookID=" + bookID +
+        return "Books{" +
+                "bookType='" + bookType + '\'' +
+                ", bookID='" + bookID + '\'' +
                 ", author='" + author + '\'' +
                 ", bookName='" + bookName + '\'' +
                 ", price=" + price +
@@ -86,4 +97,6 @@ private String dateOfPurchase;
                 ", dateOfPurchase='" + dateOfPurchase + '\'' +
                 '}';
     }
+
+
 }

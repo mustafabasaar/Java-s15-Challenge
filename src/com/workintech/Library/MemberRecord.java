@@ -1,21 +1,17 @@
 package com.workintech.Library;
-
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 public class MemberRecord {
-    private List<Invoice> invoices;
+    private List<Invoice> invoices=new ArrayList<>();
     private double memberMoney;
     private String member_id;
     private String memberName;
     private memberType type;
     private String date_of_membership;
-
     private String adress;
-    private Set<Books> rentedBooks =new HashSet<>(5);
+    private List<Books> rentedBooks =new ArrayList<>(5);
 
     public MemberRecord(String member_id, String memberName, memberType type, String date_of_membership, String adress,Double memberMoney) {
         this.member_id = member_id;
@@ -27,6 +23,9 @@ public class MemberRecord {
 
     }
 
+    public void setRentedBooks(List<Books> rentedBooks) {
+        this.rentedBooks = rentedBooks;
+    }
 
     public List<Invoice> getInvoices() {
         return invoices;
@@ -39,13 +38,11 @@ public class MemberRecord {
         this.memberMoney = memberMoney;
     }
 
-    public Set<Books> getRentedBooks() {
+    public List<Books> getRentedBooks() {
         return rentedBooks;
     }
 
-    public void setRentedBooks(Set<Books>  rentedBooks) {
-        this.rentedBooks = rentedBooks;
-    }
+
 
     public String getMember_id() {
         return member_id;
@@ -67,7 +64,9 @@ public class MemberRecord {
         return adress;
     }
 
-
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }
 
     public void setMember_id(String member_id) {
         this.member_id = member_id;
@@ -90,40 +89,49 @@ public class MemberRecord {
     }
 
     public void RentBook(Books book) {
-        if(book.isRented()){
+        if (book.isRented()) {
             System.out.println("Kitap zaten kiralanmış başka bir kitap seçmek isteyebilirsiniz");
-        }
-        else{
-            if(rentedBooks.size()==5){
+        } else {
+            if (rentedBooks.size() == 5) {
                 System.out.println("You have already 5 books first you should return the books :)");
-            }
-            else{
-                if(getMemberMoney()> book.getPrice()){
-                    this.memberMoney=memberMoney-book.getPrice();
+            } else {
+                if (getMemberMoney() > book.getPrice()) {
+                    this.memberMoney = memberMoney - book.getPrice();
                     book.setRented(true);
+                    Invoice newInvoice = new Invoice(getMemberName(), getMember_id(), book.getPrice(), book.getBookName(), true);
+                    book.setBookInvoice(newInvoice);
                     this.rentedBooks.add(book);
-                    this.invoices=new ArrayList<>();
-                    this.invoices.add(new Invoice(getMemberName(),getMember_id(),book.getPrice(),book.getBookName(),true));
-                }
-                else{
+                    this.invoices.add(newInvoice);
+                } else {
                     System.out.println("Kiralamak için yeterli paranız yok para yüklemelisiniz");
                 }
-
             }
         }
     }
+    private void removeInvoice(String bookName) {
+        invoices.removeIf(invoice -> {
+            if (invoice.getBookName().equals(bookName)) {
+                invoice.setTaken(false);
+                return true;
+            }
+            return false;
+        });
+    }
 
-    @Override
-    public String toString() {
-        return "MemberRecord{" +
-                "invoices=" + invoices +
-                ", memberMoney=" + memberMoney +
-                ", member_id='" + member_id + '\'' +
-                ", memberName='" + memberName + '\'' +
-                ", type=" + type +
-                ", date_of_membership='" + date_of_membership + '\'' +
-                ", adress='" + adress + '\'' +
-                ", rentedBooks=" + rentedBooks +
-                '}';
+    public void giveTheBookBack(Books book) {
+        if (rentedBooks.isEmpty()) {
+            System.out.println("Henüz kitap kiralamamışsınız, geri verebilmek için önce kiralama yapmalısınız");
+        } else {
+            this.memberMoney = memberMoney + book.getPrice();
+            Invoice bookInvoice = book.getBookInvoice();
+            if (bookInvoice != null && invoices.contains(bookInvoice)) {
+                invoices.remove(bookInvoice);
+            }
+            book.setRented(false);
+            removeInvoice(book.getBookName());
+            this.rentedBooks.remove(book);
+        }
     }
 }
+
+

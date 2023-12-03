@@ -9,7 +9,7 @@ interface Librarian  {
       void searchBookByAuthor(String Author);
        void findBooksByType(String bookType);
       void addMember(MemberRecord member);
-      void getAllInvoices();
+
 
 
 }

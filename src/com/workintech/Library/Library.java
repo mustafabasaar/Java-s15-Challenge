@@ -1,15 +1,12 @@
 package com.workintech.Library;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Library implements Librarian {
     private String LibrarianName;
-    private String LibrarianPassword = "Bilmem123";
+    protected String LibrarianPassword = "Bilmem123";
     private Map<String, Books> booksMap;
     private Map<String, MemberRecord> membersMap;
-    private Map<String, Invoice> invoiceMap;
+    private Map<String, List<Invoice>> invoiceMap;
 
 
     public Library(String librarianName, String LibrarianPassword) {
@@ -21,6 +18,10 @@ public class Library implements Librarian {
         } else {
             System.out.println("Password Incorrect. You don't have permission access to Library ");
         }
+    }
+
+    public Map<String, List<Invoice>> getInvoiceMap() {
+        return invoiceMap;
     }
 
     public void addBook(Books book) {
@@ -127,22 +128,8 @@ public class Library implements Librarian {
         membersMap.put(member.getMember_id(), member);
     }
 
-    public void getAllInvoices() {
-        for (MemberRecord member : membersMap.values()) {
-            if(member.getInvoices()!=null){
-                String memberID = member.getMember_id();
-                List<Invoice> invoiceList = member.getInvoices();
 
-                for (Invoice invoice : invoiceList) {
-                    invoiceMap.put(memberID, invoice);
-                }
-            }
 
-        }
     }
 
-    public Map<String, Invoice> getInvoiceMap() {
-        return invoiceMap;
-    }
-}
 
