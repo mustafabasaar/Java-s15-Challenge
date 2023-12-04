@@ -9,27 +9,59 @@ public class Invoice {
     private String Member_id;
     private double bookPrice;
     private String bookName;
-    private boolean isRented;
+    private boolean isBookRented;
 
-    public Invoice(String membername, String member_id, double bookPrice, String bookName, boolean isTaken) {
+    public Invoice(String membername, String member_id, double bookPrice, String bookName, boolean isBookRented) {
         this.invoiceNumber= UUID.randomUUID().toString();
         this.memberName = membername;
         this.Member_id = member_id;
         this.bookPrice = bookPrice;
         this.bookName = bookName;
-        this.isRented = isTaken;
+        this.isBookRented = isBookRented;
     }
 
     public String getMemberName() {
         return memberName;
     }
 
-    public void setTaken(boolean taken) {
-        isRented = taken;
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    public void setMember_id(String member_id) {
+        Member_id = member_id;
+    }
+
+    public void setBookPrice(double bookPrice) {
+        this.bookPrice = bookPrice;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public void setBookRented(boolean bookRented) {
+        isBookRented = bookRented;
     }
 
     public String getMember_id() {
         return Member_id;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public double getBookPrice() {
+        return bookPrice;
+    }
+
+    public boolean isBookRented() {
+        return isBookRented;
     }
 
     @Override
@@ -47,11 +79,12 @@ public class Invoice {
     @Override
     public String toString() {
         return "Invoice{" +
-                "memberName='" + memberName + '\'' +
+                "invoiceNumber='" + invoiceNumber + '\'' +
+                ", memberName='" + memberName + '\'' +
                 ", Member_id='" + Member_id + '\'' +
                 ", bookPrice=" + bookPrice +
                 ", bookName='" + bookName + '\'' +
-                ", isTaken=" + isRented +
+                ", isBookRented=" + isBookRented +
                 '}';
     }
 

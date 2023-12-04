@@ -8,7 +8,10 @@ interface Librarian  {
       void searchBookByName(String BookName);
       void searchBookByAuthor(String Author);
        void findBooksByType(String bookType);
-      void addMember(MemberRecord member);
+      void addMember(MemberCard member);
+
+      void getInvoices();
+
 
 
 

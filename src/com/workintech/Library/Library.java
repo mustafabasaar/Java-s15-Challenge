@@ -5,7 +5,7 @@ public class Library implements Librarian {
     private String LibrarianName;
     protected String LibrarianPassword = "Bilmem123";
     private Map<String, Books> booksMap;
-    private Map<String, MemberRecord> membersMap;
+    private Map<String, MemberCard> membersMap;
     private Map<String, List<Invoice>> invoiceMap;
 
 
@@ -32,7 +32,10 @@ public class Library implements Librarian {
     public void deleteBook(Books book) {
         booksMap.remove(book.getBookID(), book);
     }
-
+    @Override
+    public void addMember(MemberCard member) {
+        membersMap.put(member.getMember_id(), member);
+    }
     public void editBook(String bookId, String newBookName, String newAuthor, double newPrice, String dateOfPurchase) {
         Books foundBook = booksMap.get(bookId);
 
@@ -123,13 +126,34 @@ public class Library implements Librarian {
     }
 
 
-    @Override
-    public void addMember(MemberRecord member) {
-        membersMap.put(member.getMember_id(), member);
+    public void getInvoices() {
+        if(!invoiceMap.isEmpty()){
+            invoiceMap.clear();
+        }
+        for (MemberCard member : membersMap.values()) {
+            List<Invoice> memberInvoices = member.getInvoiceList();
+            System.out.println("memberInvoices"+memberInvoices);
+
+            if (memberInvoices != null && !memberInvoices.isEmpty()) {
+
+                invoiceMap.put(member.getMember_id(), new ArrayList<>(memberInvoices));
+            }
+        }
+
+        for (Map.Entry<String, List<Invoice>> entry : invoiceMap.entrySet()) {
+            String memberId = entry.getKey();
+            List<Invoice> memberInvoices = entry.getValue();
+            System.out.println("Üye Kimliği İçin Faturalar: " + memberId);
+            for (Invoice invoice : memberInvoices) {
+                System.out.println("Fatura: " + invoice.toString());
+            }
+            System.out.println("-------------------------");
+        }
+    }
+
     }
 
 
 
-    }
 
 
