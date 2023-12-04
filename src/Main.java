@@ -23,6 +23,10 @@ public class Main {
         person.getMemberCard().giveTheBookBack(studyBook);
         person.getMemberCard().RentBook(journaltwo);
         dokuzEylulLibrary.getInvoices();
+        dokuzEylulLibrary.RentedInvoices();
+        person.getMemberCard().giveTheBookBack(journal);
+        person.getMemberCard().giveTheBookBack(journaltwo);
+        dokuzEylulLibrary.RentedInvoices();
 
 
 

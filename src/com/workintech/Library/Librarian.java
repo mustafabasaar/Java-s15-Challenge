@@ -11,8 +11,6 @@ interface Librarian  {
       void addMember(MemberCard member);
 
       void getInvoices();
-
-
-
+      void RentedInvoices();
 
 }

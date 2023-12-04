@@ -127,9 +127,7 @@ public class Library implements Librarian {
 
 
     public void getInvoices() {
-        if(!invoiceMap.isEmpty()){
-            invoiceMap.clear();
-        }
+
         for (MemberCard member : membersMap.values()) {
             List<Invoice> memberInvoices = member.getInvoiceList();
             System.out.println("memberInvoices"+memberInvoices);
@@ -150,6 +148,27 @@ public class Library implements Librarian {
             System.out.println("-------------------------");
         }
     }
+
+   public void RentedInvoices(){
+        if(invoiceMap.isEmpty()){
+            System.out.println("InvoiceMap is Empty");
+        }
+       boolean foundRentedInvoice = false;
+       System.out.println("Kiralanan Kitap Faturaları:");
+       for (List<Invoice> invoices : invoiceMap.values()) {
+           for (Invoice invoice : invoices) {
+               if (invoice.isBookRented()) {
+                   System.out.println("Üye Kimliği: " + invoice.getMember_id());
+                   System.out.println("Fatura: " + invoice);
+                   System.out.println("-------------------------");
+                   foundRentedInvoice = true;
+               }
+           }
+       }
+       if (!foundRentedInvoice) {
+           System.out.println("Şu anda kiralanmış bir kitap faturası bulunamadı.");
+       }
+   }
 
     }
 
