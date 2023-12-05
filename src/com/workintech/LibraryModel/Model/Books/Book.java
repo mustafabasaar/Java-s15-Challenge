@@ -1,33 +1,34 @@
 package com.workintech.LibraryModel.Model.Books;
 
-import com.workintech.LibraryModel.Model.Library.Invoice;
+import com.workintech.LibraryModel.Model.Person.Author;
 
-public class Books {
+public class Book {
     private String bookType;
 private String bookID;
-private String author;
+private Author author;
 private String bookName;
 private double price;
 private boolean isRented;
 private String dateOfPurchase;
-private Invoice bookInvoice;
 
 
-    public Books(String bookID, String author, String bookName, double price, boolean isRented, String dateOfPurchase) {
+
+    public Book(String bookID, Author author, String bookName, double price, boolean isRented, String dateOfPurchase) {
         this.bookType="";
         this.bookID = bookID;
-        this.author = author;
+        this.author=author;
         this.bookName = bookName;
         this.price = price;
         this.isRented = isRented;
         this.dateOfPurchase = dateOfPurchase;
+        author.addBook(this.getBookName());
     }
 
     public String  getBookID() {
         return bookID;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
@@ -51,7 +52,7 @@ private Invoice bookInvoice;
         this.bookID = bookID;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -79,13 +80,6 @@ private Invoice bookInvoice;
         this.bookType = bookType;
     }
 
-    public Invoice getBookInvoice() {
-        return bookInvoice;
-    }
-
-    public void setBookInvoice(Invoice bookInvoice) {
-        this.bookInvoice = bookInvoice;
-    }
 
 
 
@@ -94,13 +88,11 @@ private Invoice bookInvoice;
         return "Books{" +
                 "bookType='" + bookType + '\'' +
                 ", bookID='" + bookID + '\'' +
-                ", author='" + author + '\'' +
+                ", Author=" + author +
                 ", bookName='" + bookName + '\'' +
                 ", price=" + price +
                 ", isRented=" + isRented +
                 ", dateOfPurchase='" + dateOfPurchase + '\'' +
                 '}';
     }
-
-
 }

@@ -1,7 +1,7 @@
 package com.workintech.LibraryModel.Model.Person;
 import com.workintech.LibraryModel.Enums.memberType;
 import com.workintech.LibraryModel.Model.Library.Invoice;
-import com.workintech.LibraryModel.Model.Books.Books;
+import com.workintech.LibraryModel.Model.Books.Book;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ public class MemberCard {
     private memberType type;
     private String date_of_membership;
     private String adress;
-    private List<Books> rentedBooks ;
+    private List<Book> rentedBooks ;
     private List<Invoice> invoiceList;
 
 
@@ -33,7 +33,7 @@ public class MemberCard {
         return memberMoney;
     }
 
-    public List<Books> getRentedBooks() {
+    public List<Book> getRentedBooks() {
         return rentedBooks;
     }
 
@@ -85,13 +85,13 @@ public class MemberCard {
 
 
 
-    public void setRentedBooks(List<Books> rentedBooks) {
+    public void setRentedBooks(List<Book> rentedBooks) {
         this.rentedBooks = rentedBooks;
     }
 
-    public void RentBook(Books book) {
+    public void RentBook(Book book) {
         if (book.isRented()) {
-            System.out.println("Kitap zaten kiralanmış başka bir kitap seçmek isteyebilirsiniz");
+            System.out.println(book.getBookName()+" Adlı kitap zaten kiralanmış başka bir kitap seçmek isteyebilirsiniz");
         } else {
             if (this.rentedBooks.size() == 5) {
                 System.out.println("You have already 5 books first you should return the books :)");
@@ -103,14 +103,14 @@ public class MemberCard {
                     book.setRented(true);
                     this.rentedBooks.add(book);
                 } else {
-                    System.out.println("Kiralamak için yeterli paranız yok para yüklemelisiniz");
+                    System.out.println(book.getBookName()+" İsimli kitabı Kiralamak için yeterli paranız yok para yüklemelisiniz");
                 }
             }
         }
     }
 
 
-    public void giveTheBookBack(Books book) {
+    public void giveTheBookBack(Book book) {
         if (rentedBooks.isEmpty()) {
             System.out.println("Henüz kitap kiralamamışsınız, geri verebilmek için önce kiralama yapmalısınız");
         } else {

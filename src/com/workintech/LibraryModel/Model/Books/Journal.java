@@ -1,10 +1,12 @@
 package com.workintech.LibraryModel.Model.Books;
 
-public class Journals extends Books {
+import com.workintech.LibraryModel.Model.Person.Author;
+
+public class Journal extends Book {
 
      private String journalType;
 
-    public Journals(String bookID, String author, String bookName, double price, boolean isRented, String dateOfPurchase, String journalType) {
+    public Journal(String bookID, Author author, String bookName, double price, boolean isRented, String dateOfPurchase, String journalType) {
         super(bookID, author, bookName, price, isRented, dateOfPurchase);
         super.setBookType("Journal");
         this.journalType = journalType;

@@ -1,13 +1,14 @@
 package com.workintech.LibraryModel.Model.Library;
 import com.workintech.LibraryModel.Interfaces.Librarian;
-import com.workintech.LibraryModel.Model.Books.Books;
+import com.workintech.LibraryModel.Model.Books.Book;
+import com.workintech.LibraryModel.Model.Person.Author;
 import com.workintech.LibraryModel.Model.Person.MemberCard;
 
 import java.util.*;
 
 public class Library implements Librarian {
 
-    private Map<String, Books> booksMap;
+    private Map<String, Book> booksMap;
     private Map<String, MemberCard> membersMap;
     private Map<String, List<Invoice>> invoiceMap;
 
@@ -22,7 +23,7 @@ public class Library implements Librarian {
         }
     }
 
-    public Map<String, Books> getBooksMap() {
+    public Map<String, Book> getBooksMap() {
         return booksMap;
     }
 
@@ -34,18 +35,18 @@ public class Library implements Librarian {
         return invoiceMap;
     }
 
-    public void addBook(Books book) {
+    public void addBook(Book book) {
         booksMap.put(book.getBookID(), book);
     }
 
-    public void deleteBook(Books book) {
+    public void deleteBook(Book book) {
         booksMap.remove(book.getBookID(), book);
     }
     public void deleteBook(String bookType){
         List<String> booksToRemove = new ArrayList<>();
 
 
-        for (Map.Entry<String, Books> entry : booksMap.entrySet()) {
+        for (Map.Entry<String, Book> entry : booksMap.entrySet()) {
             if (entry.getValue().getBookType().equalsIgnoreCase(bookType)) {
                 booksToRemove.add(entry.getKey());
             }
@@ -55,19 +56,8 @@ public class Library implements Librarian {
             booksMap.remove(bookId);
         }
     }
-    public void deleteBook(String author){
-        List<String> booksToRemove = new ArrayList<>();
+    public void deleteBook(Author author){
 
-
-        for (Map.Entry<String, Books> entry : booksMap.entrySet()) {
-            if (entry.getValue().getAuthor().equalsIgnoreCase(author)) {
-                booksToRemove.add(entry.getKey());
-            }
-        }
-
-        for (String bookId : booksToRemove) {
-            booksMap.remove(bookId);
-        }
     }
 
 
@@ -75,8 +65,8 @@ public class Library implements Librarian {
     public void addMember(MemberCard member) {
         membersMap.put(member.getMember_id(), member);
     }
-    public void editBook(String bookId, String newBookName, String newAuthor, double newPrice, String dateOfPurchase) {
-        Books foundBook = booksMap.get(bookId);
+    public void editBook(String bookId, String newBookName, Author newAuthor, double newPrice, String dateOfPurchase) {
+        Book foundBook = booksMap.get(bookId);
 
         if (foundBook != null) {
             foundBook.setBookName(newBookName);
@@ -90,7 +80,7 @@ public class Library implements Librarian {
 
     @Override
     public void searchBook(String bookId) {
-        Books foundBook = booksMap.get(bookId);
+        Book foundBook = booksMap.get(bookId);
 
         if (foundBook != null) {
             System.out.println("Kitap ID: " + foundBook.getBookID());
@@ -101,11 +91,26 @@ public class Library implements Librarian {
         }
     }
 
+
+
+    public void searchBook(Author author) {
+        System.out.println("Books by Author: " + author.getName());
+
+        for (Book book : booksMap.values()) {
+            if (book.getAuthor().equals(author)) {
+                System.out.println("Book ID: " + book.getBookID());
+                System.out.println("Book Name: " + book.getBookName());
+                System.out.println("Author: " + book.getAuthor().getName());
+                System.out.println("-------------------------");
+            }
+        }
+    }
+
     @Override
     public void searchBookByName(String BookName) {
         boolean found = false;
 
-        for (Books book : booksMap.values()) {
+        for (Book book : booksMap.values()) {
             if (book.getBookName().equalsIgnoreCase(BookName)) {
                 System.out.println("Kitap ID: " + book.getBookID());
                 System.out.println("Kitap Adı: " + book.getBookName());
@@ -119,18 +124,18 @@ public class Library implements Librarian {
         }
     }
 
-    public void findBooksByType(String bookType) {
-        List<Books> booksByType = new ArrayList<>();
+    public void searchBookByType(String bookType) {
+        List<Book> bookByType = new ArrayList<>();
 
-        for (Books book : booksMap.values()) {
+        for (Book book : booksMap.values()) {
             if (book.getBookType().equalsIgnoreCase(bookType)) {
-                booksByType.add(book);
+                bookByType.add(book);
             }
         }
 
-        if (!booksByType.isEmpty()) {
+        if (!bookByType.isEmpty()) {
             System.out.println(bookType + " adlı kategorinin kitapları:");
-            for (Books book : booksByType) {
+            for (Book book : bookByType) {
                 System.out.println("Kitap ID: " + book.getBookID());
                 System.out.println("Kitap Adı: " + book.getBookName());
                 System.out.println("Yazar: " + book.getAuthor());
@@ -142,34 +147,14 @@ public class Library implements Librarian {
 
     }
 
-    public void searchBookByAuthor(String Author) {
-        List<Books> booksByAuthor = new ArrayList<>();
 
-        for (Books book : booksMap.values()) {
-            if (book.getAuthor().equalsIgnoreCase(Author)) {
-                booksByAuthor.add(book);
-            }
-        }
-
-        if (!booksByAuthor.isEmpty()) {
-            System.out.println(Author + " adlı yazarın kitapları:");
-            for (Books book : booksByAuthor) {
-                System.out.println("Kitap ID: " + book.getBookID());
-                System.out.println("Kitap Adı: " + book.getBookName());
-                System.out.println("Yazar: " + book.getAuthor());
-                System.out.println("-------------------------");
-            }
-        } else {
-            System.out.println(Author + " adlı yazarın kitabı bulunamadı.");
-        }
-    }
 
 
     public void getInvoices() {
 
         for (MemberCard member : membersMap.values()) {
             List<Invoice> memberInvoices = member.getInvoiceList();
-            System.out.println("MEMBER INVOICES");
+
 
             if (memberInvoices != null && !memberInvoices.isEmpty()) {
 
@@ -209,7 +194,10 @@ public class Library implements Librarian {
        }
    }
 
-    }
+
+
+
+}
 
 
 

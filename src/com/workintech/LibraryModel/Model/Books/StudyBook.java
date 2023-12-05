@@ -1,9 +1,11 @@
 package com.workintech.LibraryModel.Model.Books;
 
-public class StudyBooks extends Books {
+import com.workintech.LibraryModel.Model.Person.Author;
+
+public class StudyBook extends Book {
     private String educationType;
 
-    public StudyBooks(String bookID, String author, String bookName, double price, boolean isRented, String dateOfPurchase, String educationType) {
+    public StudyBook(String bookID, Author author, String bookName, double price, boolean isRented, String dateOfPurchase, String educationType) {
         super(bookID, author, bookName, price, isRented, dateOfPurchase);
         super.setBookType("StudyBooks");
         this.educationType = educationType;
