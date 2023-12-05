@@ -1,4 +1,4 @@
-package com.workintech.Library;
+package com.workintech.LibraryModel.Model.Books;
 
 public class Journals extends Books {
 

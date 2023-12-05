@@ -1,4 +1,8 @@
-package com.workintech.Library;
+package com.workintech.LibraryModel.Model.Person;
+import com.workintech.LibraryModel.Enums.memberType;
+import com.workintech.LibraryModel.Model.Library.Invoice;
+import com.workintech.LibraryModel.Model.Books.Books;
+
 import java.util.*;
 
 public class MemberCard {

@@ -1,23 +1,33 @@
-package com.workintech.Library;
+package com.workintech.LibraryModel.Model.Library;
+import com.workintech.LibraryModel.Interfaces.Librarian;
+import com.workintech.LibraryModel.Model.Books.Books;
+import com.workintech.LibraryModel.Model.Person.MemberCard;
+
 import java.util.*;
 
 public class Library implements Librarian {
-    private String LibrarianName;
-    protected String LibrarianPassword = "Bilmem123";
+
     private Map<String, Books> booksMap;
     private Map<String, MemberCard> membersMap;
     private Map<String, List<Invoice>> invoiceMap;
 
 
-    public Library(String librarianName, String LibrarianPassword) {
+    public Library(String LibrarianPassword) {
         if (this.LibrarianPassword.equals(LibrarianPassword)) {
-            this.LibrarianName = librarianName;
             this.invoiceMap=new HashMap<>();
             this.booksMap = new HashMap<>();
             this.membersMap = new HashMap<>();
         } else {
             System.out.println("Password Incorrect. You don't have permission access to Library ");
         }
+    }
+
+    public Map<String, Books> getBooksMap() {
+        return booksMap;
+    }
+
+    public Map<String, MemberCard> getMembersMap() {
+        return membersMap;
     }
 
     public Map<String, List<Invoice>> getInvoiceMap() {
@@ -28,10 +38,39 @@ public class Library implements Librarian {
         booksMap.put(book.getBookID(), book);
     }
 
-
     public void deleteBook(Books book) {
         booksMap.remove(book.getBookID(), book);
     }
+    public void deleteBook(String bookType){
+        List<String> booksToRemove = new ArrayList<>();
+
+
+        for (Map.Entry<String, Books> entry : booksMap.entrySet()) {
+            if (entry.getValue().getBookType().equalsIgnoreCase(bookType)) {
+                booksToRemove.add(entry.getKey());
+            }
+        }
+
+        for (String bookId : booksToRemove) {
+            booksMap.remove(bookId);
+        }
+    }
+    public void deleteBook(String author){
+        List<String> booksToRemove = new ArrayList<>();
+
+
+        for (Map.Entry<String, Books> entry : booksMap.entrySet()) {
+            if (entry.getValue().getAuthor().equalsIgnoreCase(author)) {
+                booksToRemove.add(entry.getKey());
+            }
+        }
+
+        for (String bookId : booksToRemove) {
+            booksMap.remove(bookId);
+        }
+    }
+
+
     @Override
     public void addMember(MemberCard member) {
         membersMap.put(member.getMember_id(), member);
@@ -130,7 +169,7 @@ public class Library implements Librarian {
 
         for (MemberCard member : membersMap.values()) {
             List<Invoice> memberInvoices = member.getInvoiceList();
-            System.out.println("memberInvoices"+memberInvoices);
+            System.out.println("MEMBER INVOICES");
 
             if (memberInvoices != null && !memberInvoices.isEmpty()) {
 
@@ -141,7 +180,7 @@ public class Library implements Librarian {
         for (Map.Entry<String, List<Invoice>> entry : invoiceMap.entrySet()) {
             String memberId = entry.getKey();
             List<Invoice> memberInvoices = entry.getValue();
-            System.out.println("Üye Kimliği İçin Faturalar: " + memberId);
+            System.out.println(memberId+" Üye Kimliğine ait faturalar: " );
             for (Invoice invoice : memberInvoices) {
                 System.out.println("Fatura: " + invoice.toString());
             }

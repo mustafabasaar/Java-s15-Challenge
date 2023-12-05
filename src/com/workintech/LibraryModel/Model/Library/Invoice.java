@@ -1,4 +1,4 @@
-package com.workintech.Library;
+package com.workintech.LibraryModel.Model.Library;
 
 import java.util.Objects;
 import java.util.UUID;

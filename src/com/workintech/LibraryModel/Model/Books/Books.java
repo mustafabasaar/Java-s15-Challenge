@@ -1,4 +1,6 @@
-package com.workintech.Library;
+package com.workintech.LibraryModel.Model.Books;
+
+import com.workintech.LibraryModel.Model.Library.Invoice;
 
 public class Books {
     private String bookType;

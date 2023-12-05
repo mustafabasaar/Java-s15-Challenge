@@ -1,4 +1,4 @@
-package com.workintech.Library;
+package com.workintech.LibraryModel.Enums;
 
 public enum memberType {
     STUDENT,
