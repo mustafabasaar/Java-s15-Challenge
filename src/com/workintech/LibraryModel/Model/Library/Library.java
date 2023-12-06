@@ -8,7 +8,7 @@ import com.workintech.LibraryModel.Model.Person.Person;
 import java.util.*;
 
 public class Library implements Librarian {
-
+    private String librarianPassword;
     private Map<String, Book> booksMap;
     private Map<String, MemberCard> membersMap;
     private Map<String, List<Invoice>> invoiceMap;
@@ -16,22 +16,45 @@ public class Library implements Librarian {
 
     public Library(String LibrarianPassword) {
         if (this.LibrarianPassword.equals(LibrarianPassword)) {
-            this.invoiceMap=new HashMap<>();
             this.booksMap = new HashMap<>();
-            this.membersMap = new HashMap<>();
+            this.membersMap=new HashMap<>();
+            this.invoiceMap = new HashMap<>();
+
         } else {
             System.out.println("Password Incorrect. You don't have permission access to Library ");
         }
     }
-
     public Map<String, Book> getBooksMap() {
         return booksMap;
     }
+public void writeBooksMAp(){
+    System.out.println("Tüm kitaplar:");
+    for (Map.Entry<String, Book> entry : booksMap.entrySet()) {
+        Book book = entry.getValue();
+        System.out.println("Book ID: " + book.getBookID());
+        System.out.println("Book Name: " + book.getBookName());
+        System.out.println("Book Type: " + book.getBookType());
+        System.out.println("Author: " + book.getAuthor());
+        System.out.println("Price: " + book.getPrice());
+        System.out.println("****************************");
+    }
+}
 
     public Map<String, MemberCard> getMembersMap() {
         return membersMap;
     }
 
+    public void setBooksMap(Map<String, Book> booksMap) {
+        this.booksMap = booksMap;
+    }
+
+    public void setMembersMap(Map<String, MemberCard> membersMap) {
+        this.membersMap = membersMap;
+    }
+
+    public void setInvoiceMap(Map<String, List<Invoice>> invoiceMap) {
+        this.invoiceMap = invoiceMap;
+    }
 
     public void addBook(Book book) {
         booksMap.put(book.getBookID(), book);
@@ -144,15 +167,13 @@ public class Library implements Librarian {
     }
 
 
-
-
     public void getInvoices() {
-
         for (MemberCard member : membersMap.values()) {
-            List<Invoice> memberInvoices = member.getInvoiceList();
-            if (memberInvoices != null && !memberInvoices.isEmpty()) {
-                invoiceMap.put(member.getMember_id(), new ArrayList<>(memberInvoices));
-            }
+                List<Invoice> memberInvoices = member.getInvoiceList();
+                if (memberInvoices != null && !memberInvoices.isEmpty()) {
+                    invoiceMap.put(member.getMember_id(), new ArrayList<>(memberInvoices));
+                }
+
         }
 
         for (Map.Entry<String, List<Invoice>> entry : invoiceMap.entrySet()) {
@@ -186,10 +207,6 @@ public class Library implements Librarian {
            System.out.println("Şu anda kiralanmış bir kitap faturası bulunamadı.");
        }
    }
-
-
-
-
 }
 
 

@@ -12,13 +12,13 @@ public class MemberCard {
     private memberType type;
     private String date_of_membership;
     private String adress;
-    private List<Book> rentedBooks ;
+    private List<Book> rentedBooks;
     private List<Invoice> invoiceList;
 
 
     public MemberCard(double memberMoney, String memberName, memberType type, String date_of_membership, String adress) {
-        this.invoiceList=new ArrayList<>();
-        this.rentedBooks=new ArrayList<>(5);
+        this.invoiceList = new ArrayList<>();
+        this.rentedBooks = new ArrayList<>(5);
         this.memberMoney = memberMoney;
         this.member_id = UUID.randomUUID().toString();
         this.memberName = memberName;
@@ -37,6 +37,20 @@ public class MemberCard {
         return rentedBooks;
     }
 
+    public void writeRentedBooks() {
+        System.out.println(this.memberName+" tarafından kiralanmış kitaplar:");
+        for (Book book : rentedBooks) {
+            System.out.println("Book ID: " + book.getBookID());
+            System.out.println("Book Name: " + book.getBookName());
+            System.out.println("Book Type: " + book.getBookType());
+            System.out.println("Author: " + book.getAuthor());
+            System.out.println("Price: " + book.getPrice());
+            System.out.println("****************************");
+
+        }
+    }
+
+
     public void setMemberMoney(double memberMoney) {
         this.memberMoney = memberMoney;
     }
@@ -46,13 +60,14 @@ public class MemberCard {
     }
 
 
-
     public String getMemberName() {
         return memberName;
     }
+
     public List<Invoice> getInvoiceList() {
         return invoiceList;
     }
+
     public void setMemberName(String memberName) {
         this.memberName = memberName;
     }
@@ -82,26 +97,25 @@ public class MemberCard {
     }
 
 
-
     public void setRentedBooks(List<Book> rentedBooks) {
         this.rentedBooks = rentedBooks;
     }
 
     public void RentBook(Book book) {
         if (book.isRented()) {
-            System.out.println(book.getBookName()+" Adlı kitap zaten kiralanmış başka bir kitap seçmek isteyebilirsiniz");
+            System.out.println(book.getBookName() + " Adlı kitap zaten kiralanmış başka bir kitap seçmek isteyebilirsiniz");
         } else {
             if (this.rentedBooks.size() == 5) {
                 System.out.println("You have already 5 books first you should return the books :)");
             } else {
                 if (getMemberMoney() > book.getPrice()) {
-                    Invoice invoice = new Invoice(getMemberName(),getMember_id(),book.getPrice(),book.getBookName(),true);
+                    Invoice invoice = new Invoice(getMemberName(), getMember_id(), book.getPrice(), book.getBookName(), true);
                     invoiceList.add(invoice);
                     this.memberMoney = memberMoney - book.getPrice();
                     book.setRented(true);
                     this.rentedBooks.add(book);
                 } else {
-                    System.out.println(book.getBookName()+" İsimli kitabı Kiralamak için yeterli paranız yok para yüklemelisiniz");
+                    System.out.println(book.getBookName() + " İsimli kitabı Kiralamak için yeterli paranız yok para yüklemelisiniz");
                 }
             }
         }
@@ -141,19 +155,5 @@ public class MemberCard {
     public int hashCode() {
         return Objects.hash(getMember_id());
     }
-
-    @Override
-    public String toString() {
-        return "MemberCard{" +
-                "memberMoney=" + memberMoney +
-                ", member_id='" + member_id + '\'' +
-                ", memberName='" + memberName + '\'' +
-                ", type=" + type +
-                ", date_of_membership='" + date_of_membership + '\'' +
-                ", adress='" + adress + '\'' +
-                ", rentedBooks=" + rentedBooks +
-                '}';
-    }
-
 
 }
