@@ -7,7 +7,7 @@ import java.util.*;
 
 public class MemberCard {
     private double memberMoney;
-    private String member_id;
+    private final String member_id;
     private String memberName;
     private memberType type;
     private String date_of_membership;
@@ -45,9 +45,7 @@ public class MemberCard {
         return member_id;
     }
 
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
-    }
+
 
     public String getMemberName() {
         return memberName;

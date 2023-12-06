@@ -3,6 +3,7 @@ import com.workintech.LibraryModel.Interfaces.Librarian;
 import com.workintech.LibraryModel.Model.Books.Book;
 import com.workintech.LibraryModel.Model.Person.Author;
 import com.workintech.LibraryModel.Model.Person.MemberCard;
+import com.workintech.LibraryModel.Model.Person.Person;
 
 import java.util.*;
 
@@ -31,9 +32,6 @@ public class Library implements Librarian {
         return membersMap;
     }
 
-    public Map<String, List<Invoice>> getInvoiceMap() {
-        return invoiceMap;
-    }
 
     public void addBook(Book book) {
         booksMap.put(book.getBookID(), book);
@@ -56,9 +54,7 @@ public class Library implements Librarian {
             booksMap.remove(bookId);
         }
     }
-    public void deleteBook(Author author){
 
-    }
 
 
     @Override
@@ -93,7 +89,7 @@ public class Library implements Librarian {
 
 
 
-    public void searchBook(Author author) {
+    public void searchBook(Person author) {
         System.out.println("Books by Author: " + author.getName());
 
         for (Book book : booksMap.values()) {
@@ -154,10 +150,7 @@ public class Library implements Librarian {
 
         for (MemberCard member : membersMap.values()) {
             List<Invoice> memberInvoices = member.getInvoiceList();
-
-
             if (memberInvoices != null && !memberInvoices.isEmpty()) {
-
                 invoiceMap.put(member.getMember_id(), new ArrayList<>(memberInvoices));
             }
         }

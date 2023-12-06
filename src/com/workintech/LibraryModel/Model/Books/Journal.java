@@ -6,9 +6,8 @@ public class Journal extends Book {
 
      private String journalType;
 
-    public Journal(String bookID, Author author, String bookName, double price, boolean isRented, String dateOfPurchase, String journalType) {
-        super(bookID, author, bookName, price, isRented, dateOfPurchase);
-        super.setBookType("Journal");
+    public Journal(String bookID,String bookType, Author author, String bookName, double price, boolean isRented, String dateOfPurchase, String journalType) {
+        super(bookID,bookType, author, bookName, price, isRented, dateOfPurchase);
         this.journalType = journalType;
     }
 

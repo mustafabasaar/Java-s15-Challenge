@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Invoice {
-    private String invoiceNumber;
+    private final String invoiceNumber;
     private String memberName;
     private String Member_id;
     private double bookPrice;
@@ -24,9 +24,6 @@ public class Invoice {
         return memberName;
     }
 
-    public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
 
     public void setMemberName(String memberName) {
         this.memberName = memberName;

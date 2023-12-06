@@ -1,11 +1,12 @@
 package com.workintech.LibraryModel.Model.Books;
 
 import com.workintech.LibraryModel.Model.Person.Author;
+import com.workintech.LibraryModel.Model.Person.Person;
 
 public class Book {
     private String bookType;
 private String bookID;
-private Author author;
+private Person author;
 private String bookName;
 private double price;
 private boolean isRented;
@@ -13,22 +14,21 @@ private String dateOfPurchase;
 
 
 
-    public Book(String bookID, Author author, String bookName, double price, boolean isRented, String dateOfPurchase) {
-        this.bookType="";
+    public Book(String bookID, String bookType, Person author, String bookName, double price, boolean isRented, String dateOfPurchase) {
+        this.bookType=bookType;
         this.bookID = bookID;
         this.author=author;
         this.bookName = bookName;
         this.price = price;
         this.isRented = isRented;
         this.dateOfPurchase = dateOfPurchase;
-        author.addBook(this.getBookName());
     }
 
     public String  getBookID() {
         return bookID;
     }
 
-    public Author getAuthor() {
+    public Person getAuthor() {
         return author;
     }
 
