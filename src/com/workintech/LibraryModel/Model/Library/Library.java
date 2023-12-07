@@ -8,7 +8,6 @@ import com.workintech.LibraryModel.Model.Person.Person;
 import java.util.*;
 
 public class Library implements Librarian {
-    private String librarianPassword;
     private Map<String, Book> booksMap;
     private Map<String, MemberCard> membersMap;
     private Map<String, List<Invoice>> invoiceMap;
@@ -169,7 +168,7 @@ public void writeBooksMAp(){
 
     public void getInvoices() {
         for (MemberCard member : membersMap.values()) {
-                List<Invoice> memberInvoices = member.getInvoiceList();
+                Set<Invoice> memberInvoices = member.getInvoiceList();
                 if (memberInvoices != null && !memberInvoices.isEmpty()) {
                     invoiceMap.put(member.getMember_id(), new ArrayList<>(memberInvoices));
                 }

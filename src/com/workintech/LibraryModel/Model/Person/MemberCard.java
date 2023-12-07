@@ -13,11 +13,11 @@ public class MemberCard {
     private String date_of_membership;
     private String adress;
     private List<Book> rentedBooks;
-    private List<Invoice> invoiceList;
+    private Set<Invoice> invoiceList;
 
 
     public MemberCard(double memberMoney, String memberName, memberType type, String date_of_membership, String adress) {
-        this.invoiceList = new ArrayList<>();
+        this.invoiceList = new HashSet<>();
         this.rentedBooks = new ArrayList<>(5);
         this.memberMoney = memberMoney;
         this.member_id = UUID.randomUUID().toString();
@@ -64,7 +64,7 @@ public class MemberCard {
         return memberName;
     }
 
-    public List<Invoice> getInvoiceList() {
+    public Set<Invoice> getInvoiceList() {
         return invoiceList;
     }
 
