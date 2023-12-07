@@ -1,4 +1,4 @@
-import com.workintech.LibraryModel.Enums.memberType;
+
 import com.workintech.LibraryModel.Model.Books.Book;
 import com.workintech.LibraryModel.Model.Books.Journal;
 import com.workintech.LibraryModel.Model.Books.Novel;
@@ -37,12 +37,14 @@ public class Main {
         mustafa_basar.beLibraryMember(1222,mustafa_basar.getName(),"11.09.2023","Izmir");
         dokuzEylulLibrary.addMember(mustafa_basar.getMemberCard());
         dokuzEylulLibrary.addMember(ilber_ortayli.getMemberCard());
+        dokuzEylulLibrary.addMember(mehmet_basar.getMemberCard());
         mustafa_basar.getMemberCard().RentBook(sefiller);
         mustafa_basar.getMemberCard().RentBook(nutuk);
         mustafa_basar.getMemberCard().RentBook(nightLife);
         mustafa_basar.getMemberCard().RentBook(carJournel);
         mustafa_basar.getMemberCard().RentBook(geometri);
         ilber_ortayli.getMemberCard().RentBook(sefiller);
+        ilber_ortayli.getMemberCard().RentBook(anilar);
         mustafa_basar.getMemberCard().writeRentedBooks();
         dokuzEylulLibrary.getInvoices();
         System.out.println("*************************************************************************");

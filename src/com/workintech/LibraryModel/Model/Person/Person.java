@@ -1,7 +1,5 @@
 package com.workintech.LibraryModel.Model.Person;
 
-import com.workintech.LibraryModel.Enums.memberType;
-
 public class Person {
     private String name;
 
